@@ -2,8 +2,8 @@
 // Created by tudor on 18/02/2021.
 //
 
-#ifndef CPP_RAYTRACER_METAL_H
-#define CPP_RAYTRACER_METAL_H
+#ifndef METAL_H
+#define METAL_H
 
 #include "ray.h"
 #include "hitable.h"
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif //CPP_RAYTRACER_METAL_H
+#endif //METAL_H

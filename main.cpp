@@ -20,7 +20,7 @@ vec3 color(const ray &r, hitable *world, short depth) {
     if (world->hit(r, 0.001, FLT_MAX, rec)) {    //FLT_MAX
         ray scattered;
         vec3 attenuation;
-        if (depth < 12 && rec.mat_ptr->scatter(r, rec, attenuation, scattered)) {
+        if (depth < 8 && rec.mat_ptr->scatter(r, rec, attenuation, scattered)) {
             return attenuation * color(scattered, world, depth + 1);
         } else {
             return vec3(0, 0, 0);
@@ -38,11 +38,12 @@ int main() {
     int ns;
     hitable *list[6];
     std::ofstream render_file("render.ppm");
-    camera cam;
 
-    nx = 800;
-    ny = 400;
-    ns = 8;
+    nx = 1600;
+    ny = 800;
+    ns = 1024;
+    camera cam(vec3(0, 1, -2), vec3(0, 0, -1), vec3(0, 1, 0),
+               60, float(nx) / float(ny));
     render_file << "P3\n" << nx << " " << ny << "\n255\n";
 
     list[0] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.3, 0.5, 1.0)));
@@ -52,7 +53,7 @@ int main() {
     list[4] = new sphere(vec3(0, -0.3, -1.3), 0.2, new dielectric(1.31));
     list[5] = new sphere(vec3(-0.1, 0.55, -1.25), 0.2, new dielectric(1.51));
     auto *world = new hitable_list(list, 6);
-    // rows top to bot
+    // rows rendered top to bot
     for (int j = ny - 1; j >= 0; j--) {
         for (int i = 0; i < nx; i++) {
             vec3 col(0, 0, 0);
@@ -64,7 +65,6 @@ int main() {
                 float v = float(j + r_float) / float(ny);
 
                 ray r = cam.get_ray(u, v);
-//                vec3 p = r.point_at_parameter(2.0);
                 col += color(r, reinterpret_cast<hitable *>(world), 0);
             }
             col /= float(ns);
