@@ -6,15 +6,24 @@
 #define HELPER_FUNCTIONS_H
 
 #include <cmath>
+#include <random>
+#include <chrono>
+
 #include "vec3.h"
+
+float random() {
+    std::chrono::system_clock::time_point tp = std::chrono::system_clock::now();
+    unsigned seed = tp.time_since_epoch().count();
+    static thread_local std::mt19937 generator(seed);
+    std::uniform_real_distribution<float> distribution(0.0, 1.0);
+    return distribution(generator);
+}
 
 vec3 random_in_unit_sphere() {
     vec3 p;
-    // TODO: Make this more efficient
+    // TODO: Make this function more efficient
     do {
-        p = 2.0 * vec3(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)),
-                       static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)),
-                       static_cast <float> (rand()) / (static_cast <float> (RAND_MAX))) - vec3(1, 1, 1);
+        p = 2.0 * vec3(random(), random(), random()) - vec3(1, 1, 1);
     } while (p.squared_length() >= 1.0);
     return p;
 }
@@ -34,11 +43,11 @@ bool refract(const vec3 &v, const vec3 &n, float ni_over_nt, vec3 &refracted) {
     return false;
 }
 
+// for DOF implementation (currently unused)
 vec3 random_in_unit_disk() {
     vec3 p;
     do {
-        p = 2.0 * vec3(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)),
-                       static_cast <float> (rand()) / (static_cast <float> (RAND_MAX)), 0);
+        p = 2.0 * vec3(random(), random(), 0);
     } while (dot(p, p) >= 1.0);
     return p;
 }
@@ -49,5 +58,6 @@ float schlick(float cosine, float ref_idx) {
     r0 = r0 * r0;
     return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
+
 
 #endif //HELPER_FUNCTIONS_H

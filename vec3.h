@@ -181,4 +181,4 @@ inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
 
-#endif //UNTITLED_VEC3_H
+#endif //VEC3_H

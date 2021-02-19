@@ -14,7 +14,7 @@ public:
     vec3 albedo;
     float fuzz;
 
-    metal(const vec3 &a, float f) : albedo(a) {if (f < 1) fuzz = f; else fuzz = 1;}
+    metal(const vec3 &a, float f) : albedo(a) { if (f < 1) fuzz = f; else fuzz = 1; }
 
     virtual bool scatter(const ray &r_in, const hit_record &rec, vec3 &attenuation, ray &scattered) const {
         vec3 reflected = reflect(unit_vector(r_in.direction()), rec.normal);
@@ -23,6 +23,5 @@ public:
         return (dot(scattered.direction(), rec.normal) > 0);
     }
 };
-
 
 #endif //METAL_H

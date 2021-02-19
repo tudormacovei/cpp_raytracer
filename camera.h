@@ -12,7 +12,7 @@ class camera {
 public:
     camera(vec3 lookfrom, vec3 lookat, vec3 vup, float vfov, float aspect) {
         vec3 u, v, w;
-        float theta = vfov * M_PI / 180;
+        float theta = vfov * 3.1415926535897 / 180.0;
         float half_height = tan(theta / 2);
         float half_width = aspect * half_height;
         origin = lookfrom;
