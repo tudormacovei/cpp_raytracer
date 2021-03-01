@@ -31,7 +31,7 @@ vec3 color(const ray &r, hitable *world, short depth) {
 }
 
 void render_row(hitable *world, camera &cam, std::vector<vec3> &rgb_out, int nx, int ny, int j) {
-    int ns = 256;
+    int ns = 512;
     for (int i = 0; i < nx; i++) {
         vec3 col(0, 0, 0);
         for (int s = 0; s < ns; s++) {
@@ -62,13 +62,13 @@ inline void out_row(std::vector<vec3> &rgb_out, std::ofstream &render_file, int 
 }
 
 int main() {
-    int nx = 1200;
-    int ny = 600;
+    int nx = 1000;
+    int ny = 500;
     std::vector<vec3> rgb_out;
     hitable *list[6];
     std::ofstream render_file("render.ppm");
     camera cam(vec3(0, 0.5, -4), vec3(-0.3, 0, 0), vec3(0, 1, 0),
-               36, float(nx) / float(ny));
+               35, float(nx) / float(ny));
 
     rgb_out.reserve(nx * ny);
     render_file << "P3\n" << nx << " " << ny << "\n255\n";

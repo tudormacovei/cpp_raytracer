@@ -5,8 +5,10 @@
 #ifndef POSTPROCESS_H
 #define POSTPROCESS_H
 
-#include "vec3.h"
 #include <cmath>
+
+#include "vec3.h"
+
 
 class postprocess {
 public:

@@ -11,6 +11,7 @@
 
 #include "vec3.h"
 
+// returns a 'thread-safe' random float in the range [0, 1)
 float random() {
     std::chrono::system_clock::time_point tp = std::chrono::system_clock::now();
     unsigned seed = tp.time_since_epoch().count();
