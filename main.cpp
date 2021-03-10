@@ -18,6 +18,7 @@ vec3 color(const ray &r, hitable *world, short depth) {
     if (world->hit(r, 0.001, FLT_MAX, rec)) {    //FLT_MAX
         ray scattered;
         vec3 attenuation;
+
         if (depth < 8 && rec.mat_ptr->scatter(r, rec, attenuation, scattered)) {
             return attenuation * color(scattered, world, depth + 1);
         } else {
@@ -72,10 +73,10 @@ int main() {
 
     rgb_out.reserve(nx * ny);
     render_file << "P3\n" << nx << " " << ny << "\n255\n";
-    list[0] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.3, 0.5, 1.0)));
-    list[1] = new sphere(vec3(-0.5, 0, -1), 0.5, new lambertian(vec3(0.8, 0.3, 0.3)));
-    list[2] = new sphere(vec3(-1.5, 0, -0.8), 0.25, new lambertian(vec3(0.3, 0.6, 1.0)));
-    list[3] = new sphere(vec3(0.5, 0.4, -0.7), 0.6, new metal(vec3(1.0, 0.2, 0.1), 0.15));
+    list[0] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(new constant_texture(vec3(0.3, 0.5, 1.0))));
+    list[1] = new sphere(vec3(-0.5, 0, -1), 0.5, new lambertian(new constant_texture(vec3(0.8, 0.3, 0.3))));
+    list[2] = new sphere(vec3(-1.5, 0, -0.8), 0.25, new lambertian(new constant_texture(vec3(0.3, 0.6, 1.0))));
+    list[3] = new sphere(vec3(0.5, 0.4, -0.7), 0.6, new metal(new constant_texture(vec3(1.0, 0.2, 0.1)), 0.15));
     list[4] = new sphere(vec3(0, -0.3, -1.3), 0.2, new dielectric(1.31));
     list[5] = new sphere(vec3(-0.1, 0.55, -1.25), 0.2, new dielectric(1.51));
     auto *world = new hitable_list(list, 6);
