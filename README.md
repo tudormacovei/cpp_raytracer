@@ -1,7 +1,7 @@
 # cpp_raytracer
 
 ### About the project
-A raytracer written in C++ that outputs a .ppm file. I've always been interested in how render engines work, so this project is made for learning purposes and not for any practical application. The project is largely based on the raytracing book series by Peter Shirley. ("Ray Tracing in one Weekend", "Ray Tracing: The Next Week", "Ray Tracing: The Rest of Your Life".
+A raytracer written in C++ that outputs a .ppm file. I've always been interested in how render engines work, so this project is made for learning purposes and not for any practical application. The project is based on the raytracing book series by Peter Shirley. ("Ray Tracing in one Weekend", "Ray Tracing: The Next Week", "Ray Tracing: The Rest of Your Life".)
 
 ### Screenshots
 This screenshot was made after adding multithreading support:
